@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		.fake-modal {
+			/* Only happens when something has "content-visibility" and inert is toggled */
+			content-visibility: auto;
+			display: none;
+		}
+
+		.fake-modal:not(.bug-marker) {
+			display: block;
+		}
+
+		#container.bug-marker {
+			display: none;
+		}
+	</style>
+
+	<script>
+		self.toggleInert = function(e) {
+			const startState = document.getElementById('container').classList.contains('bug-marker');
+			Array.from( document.body.children ).forEach( ( child ) => {
+			if ( child === e.target ) {
+				return;
+			}
+
+			try {
+				if (child.classList.contains('fake-modal')) {
+					if (!!startState) {
+						child.classList.add('bug-marker');
+					} else {
+						child.classList.remove('bug-marker');
+					}
+				} else {
+					if (!startState) {
+						child.classList.add('bug-marker');
+					} else {
+						child.classList.remove('bug-marker');
+					}
+				}
+			} catch ( err ) {
+				console.warn( err );
+			}
+		} );
+
+			const container = document.getElementById('container');
+			if (container.classList.contains('bug-marker')) {
+				document.getElementById('result').innerHTML = 'has marker';
+			} else {
+				document.getElementById('result').innerHTML = 'does <b>not</b> have marker';
+			}
+		};
+	</script>
+</head>
+<body>
+	<main id="container">
+		<div>
+			<h1>A heading</h1>
+			<p>A paragraph</p>
+		</div>
+	</main>
+
+	<button id="toggle" onclick="toggleInert(event)">
+		Toggle
+	</button>
+
+	<p id="result"></p>
+
+	<div class="fake-modal bug-marker">
+		Fake modal
+	</div>
+</body>
+</html>

@@ -16,3 +16,9 @@ After toggling `inert`
 
 - Expected behavior is that the accessibility tree is the same before and after clicking the button twice.
 - Actual behavior is that some elements remain ignored.
+
+----------------
+
+https://romainmenke.github.io/inert-bug-1/index-b.html
+
+This variant doesn't use `inert` but instead uses a class and `display: none;` to exclude/include elements from the accessiblity tree.
