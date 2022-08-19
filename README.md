@@ -1,5 +1,7 @@
 # Inert Bug 1
 
+https://bugs.chromium.org/p/chromium/issues/detail?id=1354313
+
 Accessiblity tree breaks on some interaction between CSS `content-visibility` and the `inert` attribute.
 
 https://romainmenke.github.io/inert-bug-1/
