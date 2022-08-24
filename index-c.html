@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<style>
+		.fake-modal {
+			/* Only happens when something has "content-visibility" and inert is toggled */
+			content-visibility: hidden;
+			display: none;
+		}
+
+		[inert] {
+			display: none;
+		}
+
+		.fake-modal:not([inert]) {
+			content-visibility: visible;
+			display: block;
+		}
+
+	</style>
+
+	<script>
+		self.toggleInert = function (e) {
+			const startState = document.getElementById('container').inert;
+			Array.from(document.body.children).forEach((child) => {
+				if (child === e.target) {
+					return;
+				}
+
+				try {
+					if (child.classList.contains('fake-modal')) {
+						child.inert = !!startState;
+					} else {
+						child.inert = !startState;
+					}
+				} catch (err) {
+					console.warn(err);
+				}
+			});
+
+			const container = document.getElementById('container');
+			if (container.inert) {
+				document.getElementById('result').innerHTML = 'is inert';
+			} else {
+				document.getElementById('result').innerHTML = 'is <b>not</b> inert';
+			}
+		};
+	</script>
+</head>
+
+<body>
+	<main id="container">
+		<div>
+			<h1>A heading</h1>
+			<p>A paragraph</p>
+		</div>
+	</main>
+
+	<button id="toggle" onclick="toggleInert(event)">
+		Toggle Inert
+	</button>
+
+	<p id="result"></p>
+
+	<div class="fake-modal" inert>
+		Fake modal
+	</div>
+</body>
+</html>

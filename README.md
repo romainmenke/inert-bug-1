@@ -2,7 +2,7 @@
 
 https://bugs.chromium.org/p/chromium/issues/detail?id=1354313
 
-Accessiblity tree breaks on some interaction between CSS `content-visibility` and the `inert` attribute.
+Accessiblity tree breaks on some interaction between CSS `content-visibility: auto;` and the `inert` attribute.
 
 https://romainmenke.github.io/inert-bug-1/
 
@@ -22,3 +22,9 @@ After toggling `inert`
 https://romainmenke.github.io/inert-bug-1/index-b.html
 
 This variant doesn't use `inert` but instead uses a class and `display: none;` to exclude/include elements from the accessiblity tree.
+
+----------------
+
+https://romainmenke.github.io/inert-bug-1/index-c.html
+
+This variant doesn't use `content-visibility: auto` but instead uses `hidden` and `visible` explicitly.
